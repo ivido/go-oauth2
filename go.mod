@@ -1,3 +1,3 @@
-module github.com/ivido/goauth2
+module github.com/ivido/go-oauth2
 
 go 1.18
