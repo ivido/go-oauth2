@@ -66,9 +66,9 @@ func (s *Server) getRedirectURI(req *auth.AuthorizationRequest, data map[string]
 	}
 
 	switch req.ResponseType {
-	case oauth2.Code:
+	case oauth2.ResponseTypeCode:
 		u.RawQuery = q.Encode()
-	case oauth2.Token:
+	case oauth2.ResponseTypeToken:
 		u.RawQuery = ""
 		fragment, err := url.QueryUnescape(q.Encode())
 		if err != nil {
