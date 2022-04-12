@@ -17,12 +17,15 @@ type Server struct {
 	OAuthErrorHandler             OAuthErrorHandler
 }
 
-// NewDefaultServer creates and returns a server with default configuration
 func NewDefaultServer() *Server {
+	return NewServer(&Config{
+		TokenType: oauth2.TokenTypeJwt,
+	})
+}
+
+func NewServer(cfg *Config) *Server {
 	return &Server{
-		Config: &Config{
-			TokenType: oauth2.TokenTypeJwt,
-		},
+		Config:                        cfg,
 		AuthorizationRequestValidator: auth.DefaultAuthorizationRequestValidator,
 	}
 }
