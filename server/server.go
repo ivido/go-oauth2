@@ -32,21 +32,13 @@ func (s *Server) HandleAuthorizationRequest(w http.ResponseWriter, r *http.Reque
 
 	req, err := s.AuthorizationRequestValidator(ctx)
 	if err != nil {
-		return s.handleError(w, *req, err)
+		return s.handleError(w, req, err)
 	}
 
 	return nil
 }
 
-func (s *Server) handleError(w http.ResponseWriter, req auth.AuthorizationRequest, err error) error {
-	if fn := s.PreRedirectErrorHandler; fn != nil {
-		return fn(w, req, err)
-	}
-
-	return s.redirect(w, req, nil)
-}
-
-func (s *Server) redirect(w http.ResponseWriter, req auth.AuthorizationRequest, data map[string]interface{}) error {
+func (s *Server) redirect(w http.ResponseWriter, req *auth.AuthorizationRequest, data map[string]interface{}) error {
 	uri, err := s.getRedirectURI(req, data)
 	if err != nil {
 		return err
@@ -57,7 +49,7 @@ func (s *Server) redirect(w http.ResponseWriter, req auth.AuthorizationRequest, 
 	return nil
 }
 
-func (s *Server) getRedirectURI(req auth.AuthorizationRequest, data map[string]interface{}) (string, error) {
+func (s *Server) getRedirectURI(req *auth.AuthorizationRequest, data map[string]interface{}) (string, error) {
 	u, err := url.Parse(req.RedirectURI)
 	if err != nil {
 		return "", err
