@@ -10,7 +10,7 @@ import (
 )
 
 type Server struct {
-	Config                        *Config
+	Config                        Config
 	AuthorizationRequestValidator auth.AuthorizationRequestValidator
 	PreRedirectErrorHandler       PreRedirectErrorHandler
 	InternalErrorHandler          InternalErrorHandler
@@ -18,12 +18,10 @@ type Server struct {
 }
 
 func NewDefaultServer() *Server {
-	return NewServer(&Config{
-		TokenType: oauth2.TokenTypeJwt,
-	})
+	return NewServer(NewDefaultConfig())
 }
 
-func NewServer(cfg *Config) *Server {
+func NewServer(cfg Config) *Server {
 	return &Server{
 		Config:                        cfg,
 		AuthorizationRequestValidator: auth.DefaultAuthorizationRequestValidator,
