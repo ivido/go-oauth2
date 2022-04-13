@@ -3,7 +3,6 @@ package server_test
 import (
 	"testing"
 
-	"github.com/ivido/go-oauth2/auth"
 	"github.com/ivido/go-oauth2/oauth2"
 	"github.com/ivido/go-oauth2/server"
 )
